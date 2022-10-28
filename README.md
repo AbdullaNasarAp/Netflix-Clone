@@ -2,6 +2,9 @@
 
 A new Flutter project.
 
+
+![netflix clon1](https://user-images.githubusercontent.com/109575505/198639406-5dd920ae-f372-47cf-a1b9-9526cab5eecf.jpg)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
