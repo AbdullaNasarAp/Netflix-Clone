@@ -1,6 +1,9 @@
 # netflix_clone
 
 A new Flutter project.
+Api Integration of Netflix
+
+![netflix clon1](https://user-images.githubusercontent.com/109575505/198639406-5dd920ae-f372-47cf-a1b9-9526cab5eecf.jpg)
 
 ## Getting Started
 
