@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_clone/domain/core/const.dart';
-import 'package:netflix_clone/presentation/home/homescreen.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:netflix_clone/domain/core/color.dart';
 import 'package:netflix_clone/presentation/main_page/mainpage.dart';
 
 void main(List<String> args) {
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         backgroundColor: Colors.black,
         scaffoldBackgroundColor: background,
+        fontFamily: GoogleFonts.montserrat().fontFamily,
         textTheme: const TextTheme(
           bodyText1: TextStyle(color: Colors.white),
           bodyText2: TextStyle(color: Colors.white),

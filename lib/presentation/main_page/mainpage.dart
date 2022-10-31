@@ -15,7 +15,7 @@ class MainPage extends StatelessWidget {
     const NewAndHot(),
     const FastLaugh(),
     const SearchPage(),
-    const DownloadPage(),
+    DownloadPage(),
   ];
   @override
   Widget build(BuildContext context) {
