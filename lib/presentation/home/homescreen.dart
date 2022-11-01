@@ -90,25 +90,6 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: 500,
                         width: size.width,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.network(
-                              "https://raw.githubusercontent.com/sopheamen007/app.mobile.netflix-clone-app-ui/master/assets/images/banner_2.webp",
-                              width: 300,
-                            ),
-                            const VerticleSpace(
-                              height: 15,
-                            ),
-                            const Text(
-                              "Excting - Sci-Fi Drama - Sci-Fi Adventure",
-                              style: TextStyle(
-                                fontSize: 11,
-                              ),
-                            )
-                          ],
-                        ),
                       )
                     ],
                   ),
@@ -303,7 +284,7 @@ class Textt extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
     );
   }
 }

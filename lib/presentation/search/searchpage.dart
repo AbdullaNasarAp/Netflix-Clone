@@ -115,7 +115,7 @@ class _SearchPageState extends State<SearchPage> {
                               child: Text(
                                 movie![index].title,
                                 style: const TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w600),
+                                    fontSize: 13, fontWeight: FontWeight.w600),
                               ),
                             )
                           ],

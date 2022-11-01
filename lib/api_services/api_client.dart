@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:http/http.dart';
+import 'package:netflix_clone/exception/httpexception.dart';
 
 import 'const_api.dart';
 import 'unauthorized.dart';
@@ -18,9 +20,12 @@ class ApiClient {
         'Content-Type': 'application/json',
       },
     );
+    Map data = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
       return json.decode(response.body);
+    } else if (data['code'] != null) {
+      throw HttpException(data["code"]);
     } else {
       throw Exception(response.reasonPhrase);
     }
@@ -34,11 +39,14 @@ class ApiClient {
         'Content-Type': 'application/json',
       },
     );
+    Map data = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else if (response.statusCode == 401) {
       throw UnauthorisedException();
+    } else if (data['code'] != null) {
+      throw HttpException(data["code"]);
     } else {
       throw Exception(response.reasonPhrase);
     }
@@ -51,11 +59,14 @@ class ApiClient {
     final response = await _client.send(request).then(
           (value) => Response.fromStream(value),
         );
+    Map data = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else if (response.statusCode == 401) {
       throw UnauthorisedException();
+    } else if (data['code'] != null) {
+      throw HttpException(data["code"]);
     } else {
       throw Exception(response.reasonPhrase);
     }
