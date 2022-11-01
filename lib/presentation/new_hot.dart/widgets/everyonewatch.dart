@@ -156,7 +156,7 @@ class _EveryoneWatchingState extends State<EveryoneWatching> {
                           height: 1.4, color: Colors.white.withOpacity(0.5)),
                     ),
                   ),
-                  SizedBox(
+                  const VerticleSpace(
                     height: 10,
                   ),
                   Padding(
