@@ -244,7 +244,7 @@ class _HomePageState extends State<HomePage> {
                                   index: "${index + 1}",
                                   movie1: movie1,
                                   url:
-                                      '${ApiConstants.BASE_IMAGE_URL}${movie![index].backdropPath}',
+                                      '${ApiConstants.BASE_IMAGE_URL}${movie![index].posterPath}',
                                 );
                               }),
                             ),

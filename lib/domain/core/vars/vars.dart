@@ -1,0 +1,4 @@
+enum NewHot {
+  everyoneWatching,
+  comingSoon,
+}

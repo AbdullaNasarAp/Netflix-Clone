@@ -30,7 +30,7 @@ class MyCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: CachedNetworkImage(
                   imageUrl:
-                      '${ApiConstants.BASE_IMAGE_URL}${movie1![index].backdropPath}',
+                      '${ApiConstants.BASE_IMAGE_URL}${movie1![index].posterPath}',
                   width: 110,
                   height: 160,
                   fit: BoxFit.cover,

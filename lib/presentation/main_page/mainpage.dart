@@ -11,8 +11,8 @@ class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
 
   final pages = [
-    HomePage(),
-    const NewAndHot(),
+    const HomePage(),
+    NewAndHot(),
     const FastLaugh(),
     SearchPage(),
     DownloadPage(),
