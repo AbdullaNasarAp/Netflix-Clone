@@ -1,25 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:netflix_clone/api_services/const_api.dart';
-import 'package:netflix_clone/domain/constant.dart';
-import 'package:netflix_clone/domain/core/color.dart';
-import 'package:netflix_clone/presentation/search/widgets/image.dart';
+import 'package:netflix_clone/api_model/movie_model.dart';
 
-import '../../api_model/movie_model.dart';
 import '../../api_services/api_client.dart';
 import '../../api_services/api_service.dart';
-
-ValueNotifier<List<Results>> temp = ValueNotifier([]);
+import '../../api_services/const_api.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
-
   @override
-  State<SearchPage> createState() => _SearchPageState();
+  _SearchPageState createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
   List<Results>? movie;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -28,93 +23,127 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Future<void> getData() async {
-    movie = await MovieRemoteDataSourceImpl(ApiClient(Client())).getPopular();
-
+    movie = await MovieRemoteDataSourceImpl(ApiClient(Client())).getTrending();
+    setState(() {
+      isLoading = false;
+    });
     print(movie);
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-          appBar: AppBar(
-            toolbarHeight: 90,
-            automaticallyImplyLeading: false,
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            title: Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: TextField(
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    filled: true,
-                    fillColor: Colors.white24,
-                    hintText: 'Search',
-                    hintStyle: TextStyle(color: Colors.white),
-                    prefixIcon: Icon(Icons.search)),
-                onChanged: (String? value) {
-                  if (value != null && value.isNotEmpty) {
-                    temp.value.clear();
-                    for (Results item in movie!) {
-                      if (item.title
-                          .toLowerCase()
-                          .contains(value.toLowerCase())) {
-                        temp.value.add(item);
-                      }
-                    }
-                  }
-                  temp.notifyListeners();
-                },
-              ),
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50), child: getAppBar()),
+      body: getBody(),
+    );
+  }
+
+  Widget getAppBar() {
+    var size = MediaQuery.of(context).size;
+    return AppBar(
+      backgroundColor: Colors.black,
+      elevation: 0,
+      title: Container(
+        width: size.width,
+        height: 35,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: Colors.grey.withOpacity(0.25)),
+        child: TextField(
+          style: const TextStyle(color: Colors.white),
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: "Search",
+              prefixIcon: Icon(
+                Icons.search,
+                color: Colors.grey.withOpacity(0.7),
+              )),
+        ),
+      ),
+    );
+  }
+
+  Widget getBody() {
+    var size = MediaQuery.of(context).size;
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10, left: 18, right: 18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Top Searches",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-          ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const VerticleSpace(height: 15),
-              const Padding(
-                padding: EdgeInsets.only(left: 14.0),
-                child: TextBOld(title: "Top Searches"),
-              ),
-              const VerticleSpace(height: 15),
-              Expanded(
-                child: ValueListenableBuilder(
-                  valueListenable: temp,
-                  builder: (BuildContext context, List<Results> movie,
-                      Widget? child) {
-                    return ListView.builder(
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListTile(
-                              onTap: () {},
-                              leading: Imagedart(
-                                image:
-                                    '${ApiConstants.BASE_IMAGE_URL}${movie[index].backdropPath}',
+            const SizedBox(
+              height: 12,
+            ),
+            Column(
+                children: List.generate(movie?.length ?? 0, (index) {
+              return GestureDetector(
+                onTap: () {},
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: (size.width - 36) * 0.8,
+                        child: Row(
+                          children: [
+                            Stack(
+                              children: [
+                                CachedNetworkImage(
+                                  imageUrl:
+                                      '${ApiConstants.BASE_IMAGE_URL}${movie![index].backdropPath}',
+                                  height: 70,
+                                  width: 120,
+                                ),
+                                Container(
+                                    height: 70,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                        color: Colors.black.withOpacity(0.2)))
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            SizedBox(
+                              width: (size.width - 30) * 0.4,
+                              child: Text(
+                                movie![index].title,
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w600),
                               ),
-                              title: TextWidg(title: movie[index].title),
-                              trailing: const Icon(
-                                Icons.play_circle_outline_outlined,
-                                color: iconColor,
-                                size: 40,
-                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: (size.width - 36) * 0.2,
+                        child: Container(
+                          width: 35,
+                          height: 35,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(width: 2, color: Colors.white),
+                              color: Colors.black.withOpacity(0.4)),
+                          child: const Center(
+                            child: Icon(
+                              Icons.play_arrow,
+                              color: Colors.white,
                             ),
                           ),
-                        );
-                      },
-                      itemCount: movie.length,
-                    );
-                  },
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+              );
+            }))
+          ],
         ),
       ),
     );
