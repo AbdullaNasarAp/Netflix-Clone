@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:http/http.dart';
 import 'package:netflix_clone/exception/httpexception.dart';
@@ -13,7 +12,7 @@ class ApiClient {
   ApiClient(this._client);
 
   dynamic get(String path, {Map<dynamic, dynamic>? params}) async {
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
     final response = await _client.get(
       getPath(path, params),
       headers: {

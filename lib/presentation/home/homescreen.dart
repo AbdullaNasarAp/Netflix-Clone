@@ -178,7 +178,13 @@ class _HomePageState extends State<HomePage> {
                       const VerticleSpace(
                         height: 8,
                       ),
-                      MyCard(movie1: movie1),
+                      isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            )
+                          : MyCard(movie1: movie1),
                       const VerticleSpace(
                         height: 30,
                       ),
@@ -189,48 +195,66 @@ class _HomePageState extends State<HomePage> {
                       const VerticleSpace(
                         height: 8,
                       ),
-                      MyCard(movie1: movie1),
+                      isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            )
+                          : MyCard(movie1: movie1),
                       const VerticleSpace(
                         height: 30,
                       ),
                       const Padding(
                         padding: EdgeInsets.only(left: 15, right: 15),
-                        child: Hometext(tx: "Trending Now"),
+                        child: Hometext(tx: "Netflix Original"),
                       ),
                       const VerticleSpace(
                         height: 8,
                       ),
-                      MyCard(movie1: movie1),
+                      isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            )
+                          : MyCard(movie1: movie1),
                       const VerticleSpace(
                         height: 30,
                       ),
                       const Padding(
                         padding: EdgeInsets.only(left: 15, right: 15),
-                        child: Hometext(tx: "NetFlix Original"),
+                        child: Hometext(tx: "Top 20"),
                       ),
-                      const SizedBox(
+                      const VerticleSpace(
                         height: 8,
                       ),
 ///////////////////indexed widget/////////////////////////
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              children:
-                                  List.generate(movie2?.length ?? 0, (index) {
-                                return ImageWidget(
-                                  index: "${index + 1}",
-                                  movie1: movie1,
-                                  url:
-                                      '${ApiConstants.BASE_IMAGE_URL}${movie![index].posterPath}',
-                                );
-                              }),
-                            ),
-                          ),
-                        ),
+                        child: isLoading
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: () {},
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Row(
+                                    children: List.generate(movie2?.length ?? 0,
+                                        (index) {
+                                      return ImageWidget(
+                                        index: "${index + 1}",
+                                        movie1: movie1,
+                                        url:
+                                            '${ApiConstants.BASE_IMAGE_URL}${movie![index].posterPath}',
+                                      );
+                                    }),
+                                  ),
+                                ),
+                              ),
                       ),
 ///////////////////indexed widget/////////////////////////
                       const VerticleSpace(
@@ -243,7 +267,13 @@ class _HomePageState extends State<HomePage> {
                       const VerticleSpace(
                         height: 8,
                       ),
-                      MyCard(movie1: movie1)
+                      isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            )
+                          : MyCard(movie1: movie1)
                     ],
                   )
                 ],

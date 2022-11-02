@@ -25,14 +25,14 @@ class _VideoListItemState extends State<VideoListItem> {
   }
 
   void _playVideo({int index = 0, bool init = false}) {
-    if (index < 0 || index >= Video.length) return;
-    _Controller = VideoPlayerController.network(Video[index])
+    if (index < 0 || index >= video.length) return;
+    _Controller = VideoPlayerController.network(video[index])
       ..addListener(() => setState(() {}))
       ..setLooping(true)
       ..initialize().then((value) => _Controller.play());
   }
 
-  List Video = [
+  List video = [
     "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
         "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
         "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
@@ -50,8 +50,13 @@ class _VideoListItemState extends State<VideoListItem> {
                     ? Column(
                         children: <Widget>[
                           SizedBox(
-                            child: VideoPlayer(_Controller),
-                          )
+                              child: _Controller.value.isInitialized
+                                  ? AspectRatio(
+                                      aspectRatio:
+                                          _Controller.value.aspectRatio,
+                                      child: VideoPlayer(_Controller),
+                                    )
+                                  : Container())
                         ],
                       )
                     : const Center(

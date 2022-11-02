@@ -21,7 +21,6 @@ class TabsWidget extends StatelessWidget {
         function();
       },
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.43,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30), color: color),
         child: Padding(
